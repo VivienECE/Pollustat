@@ -1,7 +1,23 @@
 import React from 'react';
+import { 
+  makeStyles, 
+  Typography, 
+  Accordion, 
+  AccordionSummary, 
+  AccordionDetails,
+  Container,
+  Box
+} from '@material-ui/core';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
 } from 'recharts';
+
+const useStyles = makeStyles(() => ({
+  title: {
+    textAlign: 'center',
+  }
+}));
 
 const data = [
   {
@@ -43,9 +59,12 @@ const data = [
 ];
 
 export default function ChartTemperature() {
+  const { title } = useStyles();
     return (
-      <div>
-      <h5 class="texte">Temperature</h5>
+      <Container>
+      <Typography className={title}>
+        Temperature
+      </Typography>
       <div style={{ width: '95%', height: 300 }}>
         <ResponsiveContainer>
           <AreaChart  
@@ -59,11 +78,30 @@ export default function ChartTemperature() {
             
             <YAxis />
             <Tooltip />
-            <Area type="monotone" dataKey="Temperature" stackId="1" stroke="#88f4f8" fill="#88f4f8" />
+            <Area type="monotone" dataKey="Temperature" stackId="1" stroke="#88b4b8" fill="#88b4b8" />
 
           </AreaChart>
         </ResponsiveContainer>
       </div>
-      </div>
+      <Box>
+                Moyenne : 21
+                Mediane : 19
+              </Box>
+            <Accordion>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon/>}
+              >
+                <Typography color='primary'>
+                Details
+                </Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+              <Typography color='primary'>
+                This is details section
+              </Typography>
+              </AccordionDetails>
+            </Accordion>
+            {/* Slider + analyse */}
+      </Container>
     );
 }

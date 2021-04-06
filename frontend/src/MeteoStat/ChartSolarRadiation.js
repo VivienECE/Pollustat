@@ -1,7 +1,23 @@
 import React from 'react';
+import { 
+  makeStyles, 
+  Typography, 
+  Accordion, 
+  AccordionSummary, 
+  AccordionDetails,
+  Container,
+  Box
+} from '@material-ui/core';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
 } from 'recharts';
+
+const useStyles = makeStyles(() => ({
+  title: {
+    textAlign: 'center',
+  }
+}));
 
 const data = [
   {
@@ -43,9 +59,10 @@ const data = [
 ];
 
 export default function ChartSolarRadiation() {
+  const { title } = useStyles();
     return (
-      <div>
-      <h5 class="texte">Solar Radiation</h5>
+      <Container>
+      <Typography className={title}>Solar Radiation</Typography>
       <div style={{ width: '95%', height: 300 }}>
         <ResponsiveContainer>
           <AreaChart  
@@ -64,6 +81,25 @@ export default function ChartSolarRadiation() {
           </AreaChart>
         </ResponsiveContainer>
       </div>
-      </div>
+      <Box>
+                Moyenne : 21
+                Mediane : 19
+              </Box>
+            <Accordion>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon/>}
+              >
+                <Typography color='primary'>
+                Details
+                </Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+              <Typography color='primary'>
+                This is details section
+              </Typography>
+              </AccordionDetails>
+            </Accordion>
+            {/* Slider + analyse */}
+      </Container>
     );
 }
