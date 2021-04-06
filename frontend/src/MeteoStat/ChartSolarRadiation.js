@@ -6,7 +6,8 @@ import {
   AccordionSummary, 
   AccordionDetails,
   Container,
-  Box
+  Box,
+  Slider
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {
@@ -16,53 +17,90 @@ import {
 const useStyles = makeStyles(() => ({
   title: {
     textAlign: 'center',
+    padding: "2%",
+    fontSize: "200%",
+  },
+  slider: {
+    marginTop:'7%',
+    // padding: "3%",
+  },
+  stats: {
+    textAlign: "center",
+    padding: "2%",
+    fontSize: "150%",
+  },
+  details: {
+    marginTop: '7%',
+    backgroundColor: '#404050',
   }
 }));
 
 const data = [
   {
-    name: 'Janvier', "Solar Radiation": 320, 
+    name: 'Janvier', "Solar Radiation": 420, 
   },
   {
-    name: 'Février', "Solar Radiation": 340,
+    name: 'Février', "Solar Radiation": 440,
   },
   {
-    name: 'Mars', "Solar Radiation": 330,
+    name: 'Mars', "Solar Radiation": 430,
   },
   {
-    name: 'Avril', "Solar Radiation": 380, 
+    name: 'Avril', "Solar Radiation": 481, 
   },
   {
-    name: 'Mai', "Solar Radiation": 410, 
+    name: 'Mai', "Solar Radiation": 510, 
   },
   {
-    name: 'Juin', "Solar Radiation": 427, 
+    name: 'Juin', "Solar Radiation": 727, 
   },
   {
-    name: 'Juillet', "Solar Radiation": 420, 
+    name: 'Juillet', "Solar Radiation": 616, 
   },
     {
-    name: 'Aout', "Solar Radiation": 532, 
+    name: 'Aout', "Solar Radiation": 644, 
   },
     {
-    name: 'Septembre', "Solar Radiation": 412,
+    name: 'Septembre', "Solar Radiation": 582,
   },
       {
-    name: 'Octobre', "Solar Radiation": 392,
+    name: 'Octobre', "Solar Radiation": 537,
   },
       {
-    name: 'Novembre', "Solar Radiation": 329,
+    name: 'Novembre', "Solar Radiation": 429,
   },
       {
-    name: 'Décembre', "Solar Radiation": 328,
+    name: 'Décembre', "Solar Radiation": 381,
   }
 ];
 
 export default function ChartSolarRadiation() {
-  const { title } = useStyles();
+  const { title, slider, stats, details } = useStyles();
+  const marks = [
+    {
+      value: 0,
+      label: 'H',
+    },
+    {
+      value: 25,
+      label: 'J',
+    },
+    {
+      value: 50,
+      label: 'S',
+    },
+    {
+      value: 75,
+      label: 'M',
+    },
+    {
+      value: 100,
+      label: 'A',
+    }
+  ];
     return (
       <Container>
-      <Typography className={title}>Solar Radiation</Typography>
+      <Typography className={title}>Rayonnement Solaire</Typography>
       <div style={{ width: '95%', height: 300 }}>
         <ResponsiveContainer>
           <AreaChart  
@@ -80,22 +118,28 @@ export default function ChartSolarRadiation() {
 
           </AreaChart>
         </ResponsiveContainer>
+        <Slider className={slider}
+              defaultValue={100}
+              step={25}
+              marks={marks}
+              track={false}
+              />
       </div>
-      <Box>
-                Moyenne : 21
-                Mediane : 19
+      <Box className={stats}>
+                Moyenne : 514 W/m2 | 
+                Médiane : 497 W/m2
               </Box>
-            <Accordion>
+            <Accordion className={details}>
               <AccordionSummary
-                expandIcon={<ExpandMoreIcon/>}
+                expandIcon={<ExpandMoreIcon color='primary'/>}
               >
                 <Typography color='primary'>
-                Details
+                Détails
                 </Typography>
               </AccordionSummary>
               <AccordionDetails>
               <Typography color='primary'>
-                This is details section
+                Rayonnement solaire 21 W/m2 moins élevé que l'année précédente
               </Typography>
               </AccordionDetails>
             </Accordion>

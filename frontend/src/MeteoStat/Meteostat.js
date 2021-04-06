@@ -10,19 +10,23 @@ const useStyles = makeStyles(() => ({
         // backgroundColor: "#bbbbff",
         // color: "#0000ff",
     },
+    grid: {
+
+    },
     chart: {
         // backgroundColor: "#dfdfff",
     },
     paper: {
         backgroundColor: "#2f2f3f",
         color: "#aabbff",
+        paddingBottom: "7%",
     }
 }));
 
 function Example(){
-    const { chart, paper } = useStyles()
+    const { grid, chart, paper } = useStyles()
 ;    return (           
-        <Grid container spacing={6} wrap='wrap'>
+        <Grid container spacing={6} wrap='wrap' className={grid}>
             <Grid item xs={6} className={chart}>
                 <Paper variant='outlined' square className={paper}>
                     <ChartHumidity/>
