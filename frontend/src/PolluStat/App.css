@@ -1,11 +1,11 @@
-.body{
-  background-image: url(/fond2.jpg);
+body{
+  background-image: url(./img/fond.jpg);
   background-position: fixed;
   background-repeat: no-repeat;
   -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
   background-attachment: fixed;
   height:100%;
   width:100%;
@@ -17,10 +17,6 @@
   border-radius: 15px;
 }
 
-header{
-  position: fixed;
-}
-
 
 .barre_recherche{
   margin-top: 0.5em;
@@ -29,16 +25,21 @@ header{
 .dashboard{
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
-  background-color: rgba(49, 49, 49, 0.515);
-  
+  background-color: rgba(49, 49, 49, 0.415);
+
 }
 .dashboard:hover{
   box-shadow: 0 8px 16px 0 rgba(80, 79, 79, 0.124);
   background-color: rgba(5, 5, 5, 0.96);
-  
 }
 
 .texte{
  color : whitesmoke;
 }
 
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 30px,
+ }

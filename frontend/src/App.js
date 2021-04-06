@@ -1,8 +1,8 @@
 import React from 'react';
-import './App.css';
 import Header from './Header';
 import { Switch, Route } from 'react-router-dom';
-import PolluStat from './PolluStat/Pollustat';
+import PolluStat from './PolluStat/Main';
+import Footer_Pollustat from './PolluStat/Footer';
 import MeteoStat from './MeteoStat/Meteostat';
 
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
@@ -39,22 +39,24 @@ class Page extends React.Component{
   }
 
   render(){
-      return (           
-          <div class="">
+      return (
               <ThemeProvider theme={theme}>
                   <CssBaseline/>
-              <meta name="viewport" content="width=device-width, initial-scale=0.7"></meta>
-               <Header/>
-               <Switch>
-                    <Route path="/pollustat">
-                        <PolluStat/>
-                    </Route>
-                    <Route path="/meteostat">
-                        <MeteoStat/>
-                    </Route>
-               </Switch>
+                  <meta name="viewport" content="width=device-width, initial-scale=0.7"></meta>
+                 <Switch>
+                      <Route path="/pollustat">
+                          <PolluStat/>
+                          <Footer_Pollustat/>
+                      </Route>
+                      <Route path="/meteostat">
+                          <Header/>
+                          <MeteoStat/>
+                      </Route>
+                      <Route path="/">
+                          <Header/>
+                      </Route>
+                 </Switch>
               </ThemeProvider>
-          </div>
       );
   }
 }

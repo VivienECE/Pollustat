@@ -5,15 +5,18 @@
   "dependencies": {
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
+    "aws-sdk": "^2.880.0",
     "axios": "^0.21.0",
     "bootstrap": "^4.5.3",
     "lodash": "^4.17.20",
+    "moment": "^2.29.1",
     "react": "^16.11.0",
-    "react-bootstrap": "^1.4.0",
+    "react-bootstrap": "^1.5.2",
     "react-dom": "^16.11.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.2.0",
-    "recharts": "^1.8.5"
+    "react-scripts": "^4.0.3",
+    "recharts": "^1.8.5",
+    "sass": "^1.32.8"
   },
   "scripts": {
     "start": "set PORT=3001 && react-scripts start",
