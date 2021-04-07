@@ -1,11 +1,11 @@
 import React from 'react';
 import Header from './Header';
 import { Switch, Route } from 'react-router-dom';
-import NavBar_Pollustat from './PolluStat/NavBar';
-import Footer_Pollustat from './PolluStat/Footer';
-import Infos_Pollustat from './PolluStat/Infos';
+import NavBarPollustat from './PolluStat/NavBar';
+import FooterPollustat from './PolluStat/Footer';
+import InfosPollustat from './PolluStat/Infos';
 import MeteoStat from './MeteoStat/Meteostat';
-import Releves_Pollustat from './PolluStat/Releves';
+import RelevesPollustat from './PolluStat/Releves';
 
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
@@ -48,18 +48,18 @@ class Page extends React.Component{
                   <meta name="viewport" content="width=device-width, initial-scale=0.7"></meta>
                  <Switch>
                      <Route path="/pollustat/infos">
-                         <NavBar_Pollustat/>
-                         <Infos_Pollustat/>
-                         <Footer_Pollustat/>
+                         <NavBarPollustat/>
+                         <InfosPollustat/>
+                         <FooterPollustat/>
                      </Route>
                      <Route path="/pollustat/releves">
-                         <NavBar_Pollustat/>
-                         <Releves_Pollustat/>
-                         <Footer_Pollustat/>
+                         <NavBarPollustat/>
+                         <RelevesPollustat/>
+                         <FooterPollustat/>
                      </Route>
                      <Route path="/pollustat">
-                         <NavBar_Pollustat/>
-                         <Footer_Pollustat/>
+                         <NavBarPollustat/>
+                         <FooterPollustat/>
                      </Route>
 
                     <Route path="/meteostat">
