@@ -1,4 +1,5 @@
 import React from 'react';
+import './App.scss';
 
 class Footer extends React.Component{
 
@@ -11,7 +12,6 @@ class Footer extends React.Component{
   render(){
       return (
         <footer class="bg-primary text-center text-lg-start" variant="dark">
-
             <div class="container-fluid">
               <div class="row">
                 <div class="col-sm-4 text-center text-white p-3" >
@@ -44,8 +44,6 @@ class Footer extends React.Component{
                 </div>
               </div>
             </div>
-
-
       </footer>
       );
   }
