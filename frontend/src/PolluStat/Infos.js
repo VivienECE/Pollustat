@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.scss';
-import { Navbar,NavDropdown } from 'react-bootstrap';
+import './App.css';
+import { Navbar,Nav } from 'react-bootstrap';
 
 class Infos extends React.Component{
 
@@ -12,33 +13,34 @@ class Infos extends React.Component{
 
   render(){
       return (
-      <div>
-        <Navbar bg="primary" variant="dark">
-        <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
-        <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-        <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-        <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-        <NavDropdown.Divider />
-        <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-      </NavDropdown>
+      <div class="text-dark bg-white">
+        <Navbar bg="primary" variant="dark" text="dark">
+        <Nav className="mr-auto">
+          <Nav.Link href="/pollustat/infos">NO2</Nav.Link>
+          <Nav.Link href="/pollustat/infos">PM10</Nav.Link>
+          <Nav.Link href="/pollustat/infos">COV</Nav.Link>
+          <Nav.Link href="/pollustat/infos">SO2</Nav.Link>
+          <Nav.Link href="/pollustat/infos">NH10</Nav.Link>
+        </Nav>
         </Navbar>
 
         <section id="about">
         	<div class="container">
         		<div class="row">
 
-              <div class="col-md-6 col-sm-12">
-                <img src="img/photo.jpeg" class="img-responsive wow fadeInUp" alt="About"/>
+              <div class="col-md-6 col-sm-12 text">
+                <img src="https://www.innovationnewsnetwork.com/wp-content/uploads/2020/05/NO2-concentrations.jpg" width="500" height="300" alt="About"/>
               </div>
 
         			<div class="col-md-6 col-sm-12">
-        				<div class="about-thumb">
-        					<div class="section-title">
-        						<h1 class="wow fadeIn" data-wow-delay="0.2s">Our earth dying!</h1>
-        						<h3 class="wow fadeInUp" data-wow-delay="0.4s">Air/Water Pollution - Habitat Destruction</h3>
+        				<div class="about">
+        					<div class="text">
+        						<h1>Dioxyde d'azote (NO2)</h1>
+        						<h3>Qu'est ce que c'est?</h3>
         					</div>
-        					<div class="wow fadeInUp" data-wow-delay="0.6s">
-        						<p>Global carbon emissions from fossil fuels accounts for 90% of all emissions from human activity. The burning of fossil fuels releases carbon dioxide and other greenhouse gases into the atmosphere, which pollutes the air we breathe. Carbon dioxide dissolves into the sea, causing acidification which affects the life cycles of marine organisms. Vast amounts of land are decimated to provide space for drilling wells, pipelines, and processing facilities used in oil and gas drilling operations.</p>
+        					<div>
+        						<p>Le dioxyde d'azote est un gaz toxique suffocant à l'allure brun et rouge. Il à l'odeur âcre et piquante.</p>
+                    <p> Ce gaz est produit en majorité par les moteurs des véhicules terrestres ainsi que par les centrales thermiques. C'est un polluant majeur de l'atmosphere. </p>
         					</div>
         				</div>
         			</div>
@@ -52,46 +54,24 @@ class Infos extends React.Component{
         		<div class="row">
         			<div class="col-md-6 col-sm-12">
         				<div class="section-title">
-        					<h1 class="wow fadeIn" data-wow-delay="0.2s">We have to stop!</h1>
-        					<h3 class="wow fadeInUp" data-wow-delay="0.4s"></h3>
+        					<h3>Un danger pour l'homme et l'environnement</h3>
         				</div>
         				<div class="wow fadeInUp" data-wow-delay="0.6s">
-        					<p>Ending the climate crisis means we have to keep fossil fuel reserves in the ground. That means stopping all new coal, oil and gas infrastructure, and banning future fossil fuel projects.</p>
+        					<p>Ce gaz participe à la formation de pluies d'acides, à la dégradation de la couche d'ozone et à l'effet de serre.</p>
+                  <p>De plus, au delà d'une certaine concentration dans l'air, le dioxyde d'azote est sources d'irritations, d'aggravations de maladie respiratoires (asthme) et de développement de maladies respiratoires.</p>
         				</div>
             			</div>
 
         			<div class="col-md-6 col-sm-12">
         				<div class="about-thumb">
-        					 <img src="img/photo-2.jpeg" class="img-responsive wow fadeInUp" alt="About"/>
+        					   <img src="https://wallpaperaccess.com/full/1323543.jpg" width="500" height="300" alt="About"/>
         				</div>
         			</div>
         		</div>
         	</div>
         </section>
 
-        <section id="about">
-        	<div class="container">
-        		<div class="row">
 
-              <div class="col-md-6 col-sm-12">
-                <img src="img/photo-3.jpeg" class="img-responsive wow fadeInUp" alt="About"/>
-              </div>
-
-        			<div class="col-md-6 col-sm-12">
-        				<div class="about-thumb">
-        					<div class="section-title">
-        						<h1 class="wow fadeIn" data-wow-delay="0.2s">What to do?</h1>
-        						<h3 class="wow fadeInUp" data-wow-delay="0.4s">Renewable energy, no fossil fuel project</h3>
-        					</div>
-        					<div class="wow fadeInUp" data-wow-delay="0.6s">
-        						<p>Nuclear energy is one of the cleanest way to produce electricity, but uranium is always a fossil fuel. We have to develop green energy made from wind and solar power. And develop green car, boat, plane can be our future. </p>
-        					</div>
-        				</div>
-        			</div>
-
-        		</div>
-        	</div>
-                  </section>
         </div>
 
       );

@@ -39,15 +39,14 @@ export default class Example extends PureComponent {
             }
           };
           docClient.scan(params, (err, data) => {
-           
+
 	           if(data!=null)
-             { 
-              data.Items.sort(function (a, b) {
-                return a.datetime - b.datetime;
-              })
-              this.setState({ data : data.Items });
-            ;}
-             
+             {data.Items.sort(function (a, b) {
+               return a.datetime - b.datetime;
+             });
+               this.setState({ data : data.Items });
+           }
+
              console.log(this.state.data)
            });
 
@@ -59,7 +58,7 @@ export default class Example extends PureComponent {
   render() {
     return (
       <div>
-      <h5 class="texte">PPM</h5>
+      <h5 class="texte">CO2 en PPM</h5>
       <div style={{ width: '95%', height: 300 }}>
         <ResponsiveContainer>
           <AreaChart
