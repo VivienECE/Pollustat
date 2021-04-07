@@ -39,11 +39,15 @@ export default class Example extends PureComponent {
             }
           };
           docClient.scan(params, (err, data) => {
-            data.Items.sort(function (a, b) {
-              return a.datetime - b.datetime;
-            });
+           
 	           if(data!=null)
+             { 
+              data.Items.sort(function (a, b) {
+                return a.datetime - b.datetime;
+              })
               this.setState({ data : data.Items });
+            ;}
+             
              console.log(this.state.data)
            });
 
