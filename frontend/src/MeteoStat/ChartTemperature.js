@@ -6,7 +6,8 @@ import {
   AccordionSummary, 
   AccordionDetails,
   Container,
-  Box
+  Box,
+  Slider
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {
@@ -16,6 +17,21 @@ import {
 const useStyles = makeStyles(() => ({
   title: {
     textAlign: 'center',
+    padding: "2%",
+    fontSize: "200%",
+  },
+  slider: {
+    marginTop:'7%',
+    // padding: "3%",
+  },
+  stats: {
+    textAlign: "center",
+    padding: "2%",
+    fontSize: "150%",
+  },
+  details: {
+    marginTop: '7%',
+    backgroundColor: '#404050',
   }
 }));
 
@@ -59,11 +75,33 @@ const data = [
 ];
 
 export default function ChartTemperature() {
-  const { title } = useStyles();
+  const { title, slider, stats, details } = useStyles();
+  const marks = [
+    {
+      value: 0,
+      label: 'H',
+    },
+    {
+      value: 25,
+      label: 'J',
+    },
+    {
+      value: 50,
+      label: 'S',
+    },
+    {
+      value: 75,
+      label: 'M',
+    },
+    {
+      value: 100,
+      label: 'A',
+    }
+  ];
     return (
       <Container>
       <Typography className={title}>
-        Temperature
+        Température
       </Typography>
       <div style={{ width: '95%', height: 300 }}>
         <ResponsiveContainer>
@@ -82,22 +120,28 @@ export default function ChartTemperature() {
 
           </AreaChart>
         </ResponsiveContainer>
+        <Slider className={slider}
+              defaultValue={100}
+              step={25}
+              marks={marks}
+              track={false}
+              />
       </div>
-      <Box>
-                Moyenne : 21
-                Mediane : 19
+      <Box className={stats}>
+                Moyenne : 14.21 °C | 
+                Médiane : 15 ° C
               </Box>
-            <Accordion>
+            <Accordion className={details}>
               <AccordionSummary
-                expandIcon={<ExpandMoreIcon/>}
+                expandIcon={<ExpandMoreIcon color='primary'/>}
               >
                 <Typography color='primary'>
-                Details
+                Détails
                 </Typography>
               </AccordionSummary>
               <AccordionDetails>
               <Typography color='primary'>
-                This is details section
+                Température 0.3°C moins élevée que l'année précédente
               </Typography>
               </AccordionDetails>
             </Accordion>

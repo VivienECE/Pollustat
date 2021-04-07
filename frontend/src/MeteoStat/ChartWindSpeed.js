@@ -6,7 +6,8 @@ import {
   AccordionSummary, 
   AccordionDetails,
   Container,
-  Box
+  Box,
+  Slider
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {
@@ -16,53 +17,90 @@ import {
 const useStyles = makeStyles(() => ({
   title: {
     textAlign: 'center',
+    padding: "2%",
+    fontSize: "200%",
+  },
+  slider: {
+    marginTop:'7%',
+    // padding: "3%",
+  },
+  stats: {
+    textAlign: "center",
+    padding: "2%",
+    fontSize: "150%",
+  },
+  details: {
+    marginTop: '7%',
+    backgroundColor: '#404050',
   }
 }));
 
 const data = [
   {
-    name: 'Janvier', "WindSpeed": 30, 
+    name: 'Janvier', "WindSpeed": 4.71, 
   },
   {
-    name: 'Février', "WindSpeed": 23,
+    name: 'Février', "WindSpeed": 4.13,
   },
   {
-    name: 'Mars', "WindSpeed": 27,
+    name: 'Mars', "WindSpeed": 2.86,
   },
   {
-    name: 'Avril', "WindSpeed": 25, 
+    name: 'Avril', "WindSpeed": 2.37, 
   },
   {
-    name: 'Mai', "WindSpeed": 22, 
+    name: 'Mai', "WindSpeed": 2.56, 
   },
   {
-    name: 'Juin', "WindSpeed": 18, 
+    name: 'Juin', "WindSpeed": 3.72, 
   },
   {
-    name: 'Juillet', "WindSpeed": 17, 
+    name: 'Juillet', "WindSpeed": 1.90, 
   },
     {
-    name: 'Aout', "WindSpeed": 20, 
+    name: 'Aout', "WindSpeed": 2.43, 
   },
     {
-    name: 'Septembre', "WindSpeed": 21,
+    name: 'Septembre', "WindSpeed": 3.11,
   },
       {
-    name: 'Octobre', "WindSpeed": 22,
+    name: 'Octobre', "WindSpeed": 3.28,
   },
       {
-    name: 'Novembre', "WindSpeed": 25,
+    name: 'Novembre', "WindSpeed": 1.64,
   },
       {
-    name: 'Décembre', "WindSpeed": 29,
+    name: 'Décembre', "WindSpeed": 2.98,
   }
 ];
 
 export default function ChartWindSpeed() {
-  const { title } = useStyles();
+  const { title, slider, stats, details } = useStyles();
+    const marks = [
+    {
+      value: 0,
+      label: 'H',
+    },
+    {
+      value: 25,
+      label: 'J',
+    },
+    {
+      value: 50,
+      label: 'S',
+    },
+    {
+      value: 75,
+      label: 'M',
+    },
+    {
+      value: 100,
+      label: 'A',
+    }
+  ];
     return (
       <Container>
-      <Typography className={title}>WindSpeed</Typography>
+      <Typography className={title}>Vitesse du vent</Typography>
       <div style={{ width: '95%', height: 300 }}>
         <ResponsiveContainer>
           <AreaChart  
@@ -80,14 +118,20 @@ export default function ChartWindSpeed() {
 
           </AreaChart>
         </ResponsiveContainer>
+        <Slider className={slider}
+              defaultValue={100}
+              step={25}
+              marks={marks}
+              track={false}
+              />
       </div>
-      <Box>
-                Moyenne : 21
-                Mediane : 19
+      <Box className={stats}>
+                Moyenne : 2.67 m/s | 
+                Médiane : 2.51 m/s
               </Box>
-            <Accordion>
+            <Accordion className={details}>
               <AccordionSummary
-                expandIcon={<ExpandMoreIcon/>}
+                expandIcon={<ExpandMoreIcon color='primary'/>}
               >
                 <Typography color='primary'>
                 Details
@@ -95,7 +139,7 @@ export default function ChartWindSpeed() {
               </AccordionSummary>
               <AccordionDetails>
               <Typography color='primary'>
-                This is details section
+                Vitesse de vent 0.47 m/s plus élevée que l'année précédente
               </Typography>
               </AccordionDetails>
             </Accordion>
