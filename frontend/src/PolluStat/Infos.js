@@ -15,7 +15,7 @@ class Infos extends React.Component{
       return (
       <div class="text-dark bg-white">
         <Navbar bg="primary" variant="dark" text="dark">
-        <Nav className="mr-auto">
+        <Nav className="m-auto">
           <Nav.Link href="/pollustat/infos">NO2</Nav.Link>
           <Nav.Link href="/pollustat/infos">PM10</Nav.Link>
           <Nav.Link href="/pollustat/infos">COV</Nav.Link>
