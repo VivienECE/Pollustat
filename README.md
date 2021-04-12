@@ -1,9 +1,10 @@
 # Branche dev_frontend
 
-* frontend: Integration d'un exemple d'utilisation de la librairie recharts
+* frontend: Dev Pollustats & Meteostat
 * prototype_pollustats: Maquette du site web du PPE Pollu-stats
 
-## Preview Frontend
+## Preview Pollustats Frontend
 
-![](preview/1.png)
-![](preview/2.png)
+![](preview/5.png)
+![](preview/4.png)
+![](preview/3.png)
