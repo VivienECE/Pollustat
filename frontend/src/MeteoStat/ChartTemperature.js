@@ -121,7 +121,7 @@ export default function ChartTemperature() {
           </AreaChart>
         </ResponsiveContainer>
         <Slider className={slider}
-              defaultValue={100}
+              defaultValue={75}
               step={25}
               marks={marks}
               track={false}

@@ -126,7 +126,7 @@ function ChartHumidity(){
             </ResponsiveContainer>
             {/* Slider, vertical si possible */}
             <Slider className={slider}
-              defaultValue={100}
+              defaultValue={75}
               step={25}
               marks={marks}
               track={false}
