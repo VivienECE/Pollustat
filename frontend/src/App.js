@@ -1,12 +1,15 @@
 import React from 'react';
 import Header from './Header';
 import { Switch, Route } from 'react-router-dom';
-import PolluStat from './PolluStat/Main';
-import Footer_Pollustat from './PolluStat/Footer';
+import NavBarPollustat from './PolluStat/NavBar';
+import FooterPollustat from './PolluStat/Footer';
+import InfosPollustat from './PolluStat/Infos';
 import MeteoStat from './MeteoStat/Meteostat';
+import RelevesPollustat from './PolluStat/Releves';
 
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
+import './PolluStat/App.css';
 
 const theme = createMuiTheme({
   palette: {
@@ -44,17 +47,29 @@ class Page extends React.Component{
                   <CssBaseline/>
                   <meta name="viewport" content="width=device-width, initial-scale=0.7"></meta>
                  <Switch>
-                      <Route path="/pollustat">
-                          <PolluStat/>
-                          <Footer_Pollustat/>
-                      </Route>
-                      <Route path="/meteostat">
-                          <Header/>
-                          <MeteoStat/>
-                      </Route>
-                      <Route path="/">
-                          <Header/>
-                      </Route>
+                     <Route path="/pollustat/infos">
+                         <NavBarPollustat/>
+                         <InfosPollustat/>
+                         <FooterPollustat/>
+                     </Route>
+                     <Route path="/pollustat/releves">
+                         <NavBarPollustat/>
+                         <RelevesPollustat/>
+                         <FooterPollustat/>
+                     </Route>
+                     <Route path="/pollustat">
+                         <NavBarPollustat/>
+                         <FooterPollustat/>
+                     </Route>
+
+                    <Route path="/meteostat">
+                        <Header/>
+                        <MeteoStat/>
+                    </Route>
+                    <Route path="/">
+                        <Header/>
+                    </Route>
+
                  </Switch>
               </ThemeProvider>
       );

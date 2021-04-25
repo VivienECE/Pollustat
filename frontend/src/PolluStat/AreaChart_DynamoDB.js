@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import {
-  AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
+  AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
 } from 'recharts';
 import * as AWS from 'aws-sdk'
 import moment from 'moment'
@@ -18,7 +18,7 @@ export default class Example extends PureComponent {
       try {
           AWS.config.update({region: 'us-east-2'});
           AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-            IdentityPoolId: process.env.IDENTITY_POOL_ID,
+            IdentityPoolId: "us-east-2:2fd0859e-b75f-469f-b3ff-ee6174d75058",
           });
           AWS.config.credentials.get(function (err) {
              if (err) console.log(err);
@@ -29,7 +29,7 @@ export default class Example extends PureComponent {
           // #datetime between :?? and :now
           var params = {
             TableName:  "Pollustats",
-            ProjectionExpression: "#datetime, pollution,nom",
+            ProjectionExpression: "#datetime, pollution, nom",
             FilterExpression: "#datetime < :now",
             ExpressionAttributeNames: {
                 "#datetime": "datetime",
@@ -39,8 +39,14 @@ export default class Example extends PureComponent {
             }
           };
           docClient.scan(params, (err, data) => {
-             if(data=!null)
-                this.setState({ data : data.Items });
+
+	           if(data!=null)
+             {data.Items.sort(function (a, b) {
+               return a.datetime - b.datetime;
+             });
+               this.setState({ data : data.Items });
+           }
+
              console.log(this.state.data)
            });
 
@@ -52,7 +58,7 @@ export default class Example extends PureComponent {
   render() {
     return (
       <div>
-      <h5 class="texte">CO2 en ug</h5>
+      <h5 class="texte">CO2 en PPM</h5>
       <div style={{ width: '95%', height: 300 }}>
         <ResponsiveContainer>
           <AreaChart
@@ -65,13 +71,12 @@ export default class Example extends PureComponent {
             <XAxis
                dataKey = 'datetime'
                domain = {['auto', 'auto']}
-               name = 'Time'
                tickFormatter = {(unixTime) => moment(unixTime).format('DD/MM')}
                type = 'number'
              />
             <YAxis />
             <Tooltip />
-            <Area type="monotone" dataKey="pollution" label="CO2" stackId="1" stroke="#8884d8" fill="#8884d8" />
+            <Area type="monotone" name="PPM" dataKey="pollution" stackId="1" stroke="#8884d8" fill="#8884d8" />
           </AreaChart>
         </ResponsiveContainer>
       </div>
