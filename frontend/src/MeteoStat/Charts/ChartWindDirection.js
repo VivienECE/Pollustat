@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { 
   makeStyles, 
   Typography, 
@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {
-  AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
+  AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Brush,
 } from 'recharts';
 
 const useStyles = makeStyles(() => ({
@@ -35,47 +35,14 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const data = [
-  {
-    name: 'Janvier', "Temperature": 8, 
-  },
-  {
-    name: 'Février', "Temperature": 6,
-  },
-  {
-    name: 'Mars', "Temperature": 9,
-  },
-  {
-    name: 'Avril', "Temperature": 11, 
-  },
-  {
-    name: 'Mai', "Temperature": 14, 
-  },
-  {
-    name: 'Juin', "Temperature": 18, 
-  },
-  {
-    name: 'Juillet', "Temperature": 21, 
-  },
-    {
-    name: 'Aout', "Temperature": 22, 
-  },
-    {
-    name: 'Septembre', "Temperature": 17,
-  },
-      {
-    name: 'Octobre', "Temperature": 16,
-  },
-      {
-    name: 'Novembre', "Temperature": 15,
-  },
-      {
-    name: 'Décembre', "Temperature": 13,
-  }
-];
-
-export default function ChartTemperature() {
+export default function ChartWindDirection(props) {
   const { title, slider, stats, details } = useStyles();
+  const [selectedData, setSelectedData] = useState(props.dataMonths);
+  const dataHours = props.dataHours;
+  const dataDays = props.dataDays;
+  const dataWeeks = props.dataWeeks;
+  const dataMonths = props.dataMonths;
+  const average = Math.round(dataDays.reduce( (acc, elem) => acc + elem['WD10m'], 0) / dataDays.length * 100) / 100; 
   const marks = [
     {
       value: 0,
@@ -98,25 +65,48 @@ export default function ChartTemperature() {
       label: 'A',
     }
   ];
+  const changeGranularity = (event, value) => {
+    switch(value){
+      case 0:
+        // Every point: every hour
+        setSelectedData(dataHours);
+        break;
+      case 25:
+        // Average of days
+        setSelectedData(dataDays);
+        break;
+      case 50: 
+        // Average of weeks
+        setSelectedData(dataWeeks);
+        break;
+      case 75: 
+        // Average of months
+        setSelectedData(dataMonths);
+        break;
+      case 100: 
+        break;
+      default:
+        break;
+        }
+  };
     return (
       <Container>
-      <Typography className={title}>
-        Température
-      </Typography>
+      <Typography className={title}>Direction du vent</Typography>
       <div style={{ width: '95%', height: 300 }}>
         <ResponsiveContainer>
           <AreaChart  
-            data={data}
+            data={selectedData}
             margin={{
               top: 10, right: 30, left: 0, bottom: 0,
             }}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
+            <XAxis dataKey="time" />
             
             <YAxis />
             <Tooltip />
-            <Area type="monotone" dataKey="Temperature" stackId="1" stroke="#88b4b8" fill="#88b4b8" />
+            <Brush dataKey="time" data={selectedData} height={20} stroke="#5b7bb2" fill="#404050"/>
+            <Area type="monotone" dataKey="WD10m" stackId="1" stroke="#bbb4d8" fill="#bbb4d8" />
 
           </AreaChart>
         </ResponsiveContainer>
@@ -125,23 +115,23 @@ export default function ChartTemperature() {
               step={25}
               marks={marks}
               track={false}
+              onChangeCommitted={changeGranularity}
               />
       </div>
       <Box className={stats}>
-                Moyenne : 14.21 °C | 
-                Médiane : 15 ° C
+                Moyenne : {average}°
               </Box>
             <Accordion className={details}>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon color='primary'/>}
               >
                 <Typography color='primary'>
-                Détails
+                Details
                 </Typography>
               </AccordionSummary>
               <AccordionDetails>
               <Typography color='primary'>
-                Température 0.3°C moins élevée que l'année précédente
+                Direction de vent 12° plus élevée que l'année précédente
               </Typography>
               </AccordionDetails>
             </Accordion>

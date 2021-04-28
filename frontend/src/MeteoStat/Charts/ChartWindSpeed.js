@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { 
   makeStyles, 
   Typography, 
@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {
-  AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
+  AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Brush,
 } from 'recharts';
 
 const useStyles = makeStyles(() => ({
@@ -35,48 +35,15 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const data = [
-  {
-    name: 'Janvier', "WindSpeed": 4.71, 
-  },
-  {
-    name: 'Février', "WindSpeed": 4.13,
-  },
-  {
-    name: 'Mars', "WindSpeed": 2.86,
-  },
-  {
-    name: 'Avril', "WindSpeed": 2.37, 
-  },
-  {
-    name: 'Mai', "WindSpeed": 2.56, 
-  },
-  {
-    name: 'Juin', "WindSpeed": 3.72, 
-  },
-  {
-    name: 'Juillet', "WindSpeed": 1.90, 
-  },
-    {
-    name: 'Aout', "WindSpeed": 2.43, 
-  },
-    {
-    name: 'Septembre', "WindSpeed": 3.11,
-  },
-      {
-    name: 'Octobre', "WindSpeed": 3.28,
-  },
-      {
-    name: 'Novembre', "WindSpeed": 1.64,
-  },
-      {
-    name: 'Décembre', "WindSpeed": 2.98,
-  }
-];
-
-export default function ChartWindSpeed() {
+export default function ChartWindSpeed(props) {
   const { title, slider, stats, details } = useStyles();
-    const marks = [
+  const [selectedData, setSelectedData] = useState(props.dataMonths);
+  const dataHours = props.dataHours;
+  const dataDays = props.dataDays;
+  const dataWeeks = props.dataWeeks;
+  const dataMonths = props.dataMonths;
+  const average = Math.round(dataDays.reduce( (acc, elem) => acc + elem['WS10m'], 0) / dataDays.length * 100) / 100; 
+  const marks = [
     {
       value: 0,
       label: 'H',
@@ -98,23 +65,48 @@ export default function ChartWindSpeed() {
       label: 'A',
     }
   ];
+  const changeGranularity = (event, value) => {
+    switch(value){
+      case 0:
+        // Every point: every hour
+        setSelectedData(dataHours);
+        break;
+      case 25:
+        // Average of days
+        setSelectedData(dataDays);
+        break;
+      case 50: 
+        // Average of weeks
+        setSelectedData(dataWeeks);
+        break;
+      case 75: 
+        // Average of months
+        setSelectedData(dataMonths);
+        break;
+      case 100: 
+        break;
+      default:
+        break;
+        }
+  };
     return (
       <Container>
       <Typography className={title}>Vitesse du vent</Typography>
       <div style={{ width: '95%', height: 300 }}>
         <ResponsiveContainer>
           <AreaChart  
-            data={data}
+            data={selectedData}
             margin={{
               top: 10, right: 30, left: 0, bottom: 0,
             }}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
+            <XAxis dataKey="time" />
             
             <YAxis />
             <Tooltip />
-            <Area type="monotone" dataKey="WindSpeed" stackId="1" stroke="#bbb4d8" fill="#bbb4d8" />
+            <Brush dataKey="time" data={selectedData} height={20} stroke="#5b7bb2" fill="#404050"/>
+            <Area type="monotone" dataKey="WS10m" stackId="1" stroke="#bbb4d8" fill="#bbb4d8" />
 
           </AreaChart>
         </ResponsiveContainer>
@@ -123,11 +115,11 @@ export default function ChartWindSpeed() {
               step={25}
               marks={marks}
               track={false}
+              onChangeCommitted={changeGranularity}
               />
       </div>
       <Box className={stats}>
-                Moyenne : 2.67 m/s | 
-                Médiane : 2.51 m/s
+                Moyenne : {average}m/s 
               </Box>
             <Accordion className={details}>
               <AccordionSummary

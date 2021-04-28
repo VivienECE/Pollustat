@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   makeStyles, 
   Typography, 
@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {
-  AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
+  AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Brush
 } from 'recharts';
 
 const useStyles = makeStyles(() => ({
@@ -35,46 +35,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const data = [
-  {
-    name: 'Janvier', "Solar Radiation": 420, 
-  },
-  {
-    name: 'Février', "Solar Radiation": 440,
-  },
-  {
-    name: 'Mars', "Solar Radiation": 430,
-  },
-  {
-    name: 'Avril', "Solar Radiation": 481, 
-  },
-  {
-    name: 'Mai', "Solar Radiation": 510, 
-  },
-  {
-    name: 'Juin', "Solar Radiation": 727, 
-  },
-  {
-    name: 'Juillet', "Solar Radiation": 616, 
-  },
-    {
-    name: 'Aout', "Solar Radiation": 644, 
-  },
-    {
-    name: 'Septembre', "Solar Radiation": 582,
-  },
-      {
-    name: 'Octobre', "Solar Radiation": 537,
-  },
-      {
-    name: 'Novembre', "Solar Radiation": 429,
-  },
-      {
-    name: 'Décembre', "Solar Radiation": 381,
-  }
-];
-
-export default function ChartSolarRadiation() {
+export default function ChartSolarRadiation(props) {
   const { title, slider, stats, details } = useStyles();
   const marks = [
     {
@@ -98,23 +59,55 @@ export default function ChartSolarRadiation() {
       label: 'A',
     }
   ];
+  const changeGranularity = (event, value) => {
+    switch(value){
+      case 0:
+        // Every point: every hour
+        setSelectedData(dataHours);
+        break;
+      case 25:
+        // Average of days
+        setSelectedData(dataDays);
+        break;
+      case 50: 
+        // Average of weeks
+        setSelectedData(dataWeeks);
+        break;
+      case 75: 
+        // Average of months
+        setSelectedData(dataMonths);
+        break;
+      case 100: 
+        break;
+      default:
+        break;
+        }
+  };
+  const [selectedData, setSelectedData] = useState(props.dataMonths);
+  const dataHours = props.dataHours;
+  const dataDays = props.dataDays;
+  const dataWeeks = props.dataWeeks;
+  const dataMonths = props.dataMonths;
+  const average = Math.round(dataDays.reduce( (acc, elem) => acc + elem['G(h)'], 0) / dataDays.length * 100) / 100; 
+  
     return (
       <Container>
       <Typography className={title}>Rayonnement Solaire</Typography>
       <div style={{ width: '95%', height: 300 }}>
         <ResponsiveContainer>
           <AreaChart  
-            data={data}
+            data={selectedData}
             margin={{
               top: 10, right: 30, left: 0, bottom: 0,
             }}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
+            <XAxis dataKey="time" />
             
             <YAxis />
             <Tooltip />
-            <Area type="monotone" dataKey="Solar Radiation" stackId="1" stroke="#ff84d8" fill="#ff84d8" />
+            <Brush dataKey="time" data={selectedData} height={20} stroke="#5b7bb2" fill="#404050"/>
+            <Area type="monotone" dataKey="G(h)" stackId="1" stroke="#ff84d8" fill="#ff84d8" />
 
           </AreaChart>
         </ResponsiveContainer>
@@ -123,11 +116,11 @@ export default function ChartSolarRadiation() {
               step={25}
               marks={marks}
               track={false}
+              onChangeCommitted={changeGranularity}
               />
       </div>
       <Box className={stats}>
-                Moyenne : 514 W/m2 | 
-                Médiane : 497 W/m2
+                Moyenne : {average}W/m2
               </Box>
             <Accordion className={details}>
               <AccordionSummary
