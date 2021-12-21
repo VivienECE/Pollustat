@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
 } from 'recharts';
-import * as AWS from 'aws-sdk'
+import axios from 'axios'
 import moment from 'moment'
 
 export default class Example extends PureComponent {
@@ -13,49 +13,24 @@ export default class Example extends PureComponent {
         loading: true
     }
 
-    async componentDidMount() {
+  async componentDidMount() {
       //Have a try and catch block for catching errors.
       try {
-          AWS.config.update({region: 'us-east-2'});
-          AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-            IdentityPoolId: "us-east-2:2fd0859e-b75f-469f-b3ff-ee6174d75058",
-          });
-          AWS.config.credentials.get(function (err) {
-             if (err) console.log(err);
-             else console.log(AWS.config.credentials);
-          });
-
-          var docClient = new AWS.DynamoDB.DocumentClient();
-          // #datetime between :?? and :now
-          var params = {
-            TableName:  "Pollustats",
-            ProjectionExpression: "#datetime, pollution, nom",
-            FilterExpression: "#datetime < :now",
-            ExpressionAttributeNames: {
-                "#datetime": "datetime",
-            },
-            ExpressionAttributeValues: {
-                 ":now": Date.now()
-            }
-          };
-          docClient.scan(params, (err, data) => {
-
-	           if(data!=null)
-             {data.Items.sort(function (a, b) {
-               return a.datetime - b.datetime;
-             });
-               this.setState({ data : data.Items });
-           }
-
-             console.log(this.state.data)
-           });
-
-          } catch(err) {
+        axios.get('http://localhost:3000/mesure')
+        .then((response) => {
+            this.setState({ data : response.data.msg.sort(function(a,b){
+              return new Number(b.datetime) - new Number(a.datetime);
+            }) });
+            console.log(response)
+         })
+        } catch(err) {
               console.log("Error fetching data-----------", err);
-          }
+        }
   }
 
+
   render() {
+    console.log(this.state.data)
     return (
       <div>
       <h5 class="texte">CO2 en PPM</h5>
