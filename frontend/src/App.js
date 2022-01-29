@@ -1,17 +1,17 @@
-import React from 'react';
-import Header from './Header';
-import { Switch, Route } from 'react-router-dom';
-import NavBarPollustat from './PolluStat/NavBar';
-import FooterPollustat from './PolluStat/Footer';
+import React, {useState} from 'react'
+import {
+  Switch,
+  Route,
+} from "react-router-dom";
 import InfosPollustat from './PolluStat/Infos';
-import MeteoStat from './MeteoStat/Meteostat';
 import RelevesPollustat from './PolluStat/Releves';
-
-import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider, createTheme } from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
 import './PolluStat/App.css';
+import NavBarPollustat from './PolluStat/NavBar';
+import FooterPollustat from './PolluStat/Footer';
 
-const theme = createMuiTheme({
+const theme = createTheme({
   palette: {
     background: {
         default: "#333841",
@@ -20,8 +20,8 @@ const theme = createMuiTheme({
         primary:"#ffffff",
     },
     primary: {
-      light: '#9bc0ff',
-      main: '#82b1ff',
+      light: 'rgba(110, 181, 119, 0.59)',
+      main: 'rgba(110, 181, 119)',
       dark: '#5b7bb2',
       contrastText: '#fff',
     },
@@ -34,46 +34,23 @@ const theme = createMuiTheme({
   },
 });
 
-class Page extends React.Component{
-  constructor(props){
-      super(props);
-      this.state = {
-      };
-  }
-
-  render(){
+export default () => {
       return (
               <ThemeProvider theme={theme}>
                   <CssBaseline/>
                   <meta name="viewport" content="width=device-width, initial-scale=0.7"></meta>
+                  <NavBarPollustat/>
                  <Switch>
-                     <Route path="/pollustat/infos">
-                         <NavBarPollustat/>
+                     <Route exact path="/pollustat/infos">
                          <InfosPollustat/>
-                         <FooterPollustat/>
                      </Route>
-                     <Route path="/pollustat/releves">
-                         <NavBarPollustat/>
+                     <Route exact path="/pollustat/releves">
                          <RelevesPollustat/>
-                         <FooterPollustat/>
                      </Route>
-                     <Route path="/pollustat">
-                         <NavBarPollustat/>
-                         <FooterPollustat/>
+                     <Route exact path="/pollustat">
                      </Route>
-
-                    <Route path="/meteostat">
-                        <Header/>
-                        <MeteoStat/>
-                    </Route>
-                    <Route path="/">
-                        <Header/>
-                    </Route>
-
                  </Switch>
+                 <FooterPollustat/>
               </ThemeProvider>
       );
   }
-}
-
-export default Page;

@@ -1,88 +1,32 @@
-import { 
-    AppBar, 
-    Toolbar, 
-    Typography, 
-    makeStyles,
-    Button,
-} from "@material-ui/core";
-import React from "react";
-import { Link as RouterLink, useHistory } from "react-router-dom";
+import React from 'react';
+import { Nav,Navbar } from 'react-bootstrap';
+import './App.scss';
 
-const headersData = [
-    {
-      label: "PolluStat",
-      href: "/pollustat",
-    },
-    {
-      label: "MeteoStat",
-      href: "/meteostat",
-    },
-];
+class Toolbar extends React.Component{
 
-const useStyles = makeStyles(() => ({
-    header: {
-        // backgroundColor: "#400Caa",
-        paddingRight: "79px",
-        paddingLeft: "118px",
-    },
-    logo: {
-        color: "#FFFFFF",
-    },
-    menuButton: {
-        fontFamily: "Open Sans, sans-serif",
-        fontWeight: 700,
-        size: "18px",
-        marginLeft: "38px",
-     },
-     toolbar: {
-        display: "flex",
-        justifyContent: "space-between",
-      },
- }));
-
-export default function Header() {
-    const { header, logo, menuButton, toolbar } = useStyles();
-    const history = useHistory();
-    const displayDesktop = () => {
-        return (
-            <Toolbar className={toolbar}>
-                {InseecStatLogo}
-                <div>{getMenuButtons()}</div>
-            </Toolbar>
-        );
-    };
-    const InseecStatLogo = (
-        <Typography variant="h6" component="h1" className={logo}>
-            InseecStat
-        </Typography>
-    );
-    const getMenuButtons = () => {
-        return headersData.map(({ label, href }) => {
-          return (
-            <Button
-              {...{
-                key: label,
-                color: "inherit",
-                to: href,
-                component: RouterLink,
-                className: menuButton,
-              }}
-              onClick={(e) => {
-                  e.preventDefault();
-                  history.push(href);
-              }}
-            >
-              {label}
-            </Button>
-          );
-        });
+  constructor(props){
+      super(props);
+      this.state = {
       };
-    
-    return (
-      <div>
-        <header>
-          <AppBar className={header}>{displayDesktop()}</AppBar>
-        </header>
-      </div>
-    );
+  }
+
+  render(){
+      return (
+        <div>
+          <Navbar bg="primary" variant="dark">
+          <Navbar.Brand href="/">
+          <img src="https://www.zupimages.net/up/21/13/lbxl.png" class="rounded float-left img-fluid" width="100" height="50" alt=""/>
+          </Navbar.Brand>
+            <Nav className="mr-auto">
+              <Nav.Link href="/pollustat/releves">Relevés</Nav.Link>
+              <Nav.Link href="/pollustat/infos">Infos</Nav.Link>
+              <Nav.Link href="/pollustat">A Propos</Nav.Link>
+            </Nav>
+          </Navbar>
+        <div class="body-second"/>
+        </div>
+      );
+  }
 }
+
+export default Toolbar;

@@ -3,22 +3,19 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import Page from './App';
 import * as serviceWorker from './serviceWorker';
+import { Provider as ContextProvider } from './PolluStat/Context';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
+  BrowserRouter as Router,
 } from "react-router-dom";
 
 export default function App() {
     return (
-      <Router>  
-          <Switch>
-            <Route path="/">
-              <Page />
-            </Route>
-          </Switch>
+      <ContextProvider>
+      <Router>
+        <Page />
       </Router>
+      </ContextProvider>
     );
 }
 

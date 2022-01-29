@@ -12,8 +12,8 @@ class Dashboard extends React.Component{
 
   render(){
       return (
-          <div>
-          <Navbar bg="primary" variant="dark">
+          <div >
+          <Navbar bg="primary" variant="dark" text="dark">
           <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
           <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
           <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
@@ -22,11 +22,12 @@ class Dashboard extends React.Component{
           <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
         </NavDropdown>
           </Navbar>
-            <div class="container">
+            <div class="container ">
                 <hr/>
                 <div class = "dashboard o5 col-xl-12 "><AreaChart data={this.state.data}/></div>
                 <br></br>
               </div>
+            <div class="body-second"/>
           </div>
       );
   }
