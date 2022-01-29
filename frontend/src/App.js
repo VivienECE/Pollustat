@@ -5,6 +5,7 @@ import {
 } from "react-router-dom";
 import InfosPollustat from './PolluStat/Infos';
 import RelevesPollustat from './PolluStat/Releves';
+import APropos from './PolluStat/Propos';
 import { ThemeProvider, createTheme } from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
 import './PolluStat/App.css';
@@ -43,6 +44,9 @@ export default () => {
                  <Switch>
                      <Route exact path="/pollustat/infos">
                          <InfosPollustat/>
+                     </Route>
+                     <Route exact path="/pollustat/propos">
+                         <APropos/>
                      </Route>
                      <Route exact path="/pollustat/releves">
                          <RelevesPollustat/>

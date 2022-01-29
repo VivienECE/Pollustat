@@ -46,3 +46,26 @@ footer {
 .NavDropdown {
   color: white;
 }
+
+#img_right {
+  position:relative;
+  float: right;    
+}
+
+#img_left {
+  float: left;
+  position:relative;
+}
+#textboxdiv {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center
+}
+
+.avatar {
+  vertical-align: middle;
+  width: calc(90px + 4.5vw);
+  height: calc(90px + 4.5vw);
+  border-radius: 50%;
+}

@@ -56,9 +56,9 @@ export default () => {
     const drawer = (
       <div>
           <Nav>
-              <NavLink style = {{color: 'white',  padding:'1em',fontSize:'2vw'}} activeStyle={{ color: 'green' }} to="/pollustat/releves">Relevés</NavLink>
-              <NavLink style = {{color: 'white',padding:'1em',fontSize:'2vw'}} activeStyle={{ color: 'green' }} to="/pollustat/infos">Infos</NavLink>
-              <NavLink style = {{color: 'white',padding:'1em',fontSize:'2vw'}} activeStyle={{ color: 'green' }}to="/pollustat/propos">A Propos</NavLink>
+              <NavLink style = {{color: 'white',  padding:'1em',fontSize:'3.5vw'}} activeStyle={{ color: 'green' }} to="/pollustat/releves">Relevés</NavLink>
+              <NavLink style = {{color: 'white',padding:'1em',fontSize:'3.5vw'}} activeStyle={{ color: 'green' }} to="/pollustat/infos">Infos</NavLink>
+              <NavLink style = {{color: 'white',padding:'1em',fontSize:'3.5vw'}} activeStyle={{ color: 'green' }}to="/pollustat/propos">A Propos</NavLink>
           </Nav>
       </div>
     );

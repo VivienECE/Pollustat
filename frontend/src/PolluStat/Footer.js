@@ -43,12 +43,10 @@ export default () => {
 
       <Hidden smUp >
         <div class="container">
-                <div class="row">
-                  <div class="col-sm-4 text-center text-white">
+          <center>
                       <img src="https://www.zupimages.net/up/21/13/lbxl.png" class="rounded img-fluid" width="100" height="50" alt=""/>
-                  </div>
-                </div>
-              </div>
+        </center>
+          </div>
       </Hidden>
       </footer>
       );
