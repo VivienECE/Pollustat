@@ -49,6 +49,7 @@
     "@storybook/addons": "^5.2.6",
     "@storybook/node-logger": "^6.1.1",
     "@storybook/preset-create-react-app": "^3.1.5",
-    "@storybook/react": "^6.1.1"
+    "@storybook/react": "^6.1.1",
+    "netlify-plugin-inline-functions-env": "^1.0.9"
   }
 }
