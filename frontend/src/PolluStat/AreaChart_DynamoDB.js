@@ -19,7 +19,7 @@ export default class Example extends PureComponent {
     async componentDidMount() {
       //Have a try and catch block for catching errors.
       try {
-          AWS.config.update({region: process.env.AWS_REGION});
+          AWS.config.update({region: process.env.AWS_REGION1});
           AWS.config.credentials = new AWS.CognitoIdentityCredentials({
             IdentityPoolId: process.env.AWS_ID,
           });
