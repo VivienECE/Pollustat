@@ -4,6 +4,7 @@ import {
 } from 'recharts';
 import * as AWS from 'aws-sdk'
 import moment from 'moment'
+import Context from './Context'
 
 export default class Example extends PureComponent {
       state = {
@@ -12,7 +13,9 @@ export default class Example extends PureComponent {
         //Have a loading state where when data retrieve returns data.
         loading: true
     }
-
+   
+    static contextType = Context
+    
     async componentDidMount() {
       //Have a try and catch block for catching errors.
       try {
@@ -29,10 +32,10 @@ export default class Example extends PureComponent {
           // #datetime between :?? and :now
           var params = {
             TableName:  process.env.AWS_DB_TABLE,
-            ProjectionExpression: "#datetime, pollution, nom",
-            FilterExpression: "#datetime < :now",
+            ProjectionExpression: "#sample_time, device_data, device_id",
+            FilterExpression: "#sample_time < :now",
             ExpressionAttributeNames: {
-                "#datetime": "datetime",
+                "#sample_time": "sample_time",
             },
             ExpressionAttributeValues: {
                  ":now": Date.now()
@@ -53,6 +56,8 @@ export default class Example extends PureComponent {
   }
 
   render() {
+    const {domain, tickFormatter} = this.context;
+    console.log(domain)
     return (
       <div>
       <h5 class="texte">CO2 en PPM</h5>
@@ -66,15 +71,16 @@ export default class Example extends PureComponent {
           >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis
-               dataKey = 'datetime'
-               domain = {['auto', 'auto']}
-               tickFormatter = {(unixTime) => moment(unixTime).format('DD/MM')}
+               dataKey = 'sample_time'
+               allowDataOverFlow={true}
+               domain = {domain}
+               tickFormatter = {(unixTime) => moment(unixTime).format(tickFormatter)}
                type = 'number'
              />
             <YAxis />
             <Tooltip />
-            <Area type="monotone" name="PPM" dataKey="pollution" stackId="1" stroke="#8884d8" fill="#8884d8" />
-            <Area type="monotone" name="PPM" dataKey="pollution2" stackId="1" stroke="#84d8ca" fill="#84d8ca" />
+            <Area type="monotone" name="PPM" dataKey="device_data.polluant1" stackId="1" stroke="#8884d8" fill="#8884d8" />
+            <Area type="monotone" name="PPM" dataKey="device_data.polluant2" stackId="0" stroke="#84d8ca" fill="#84d8ca" />
           </AreaChart>
         </ResponsiveContainer>
       </div>

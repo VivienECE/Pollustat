@@ -77,3 +77,9 @@ footer {
   height: calc(90px + 4.5vw);
   border-radius: 50%;
 }
+
+#nav-dropdown{
+  color: white;
+  font-weight: bold;
+  background-color: rgb(71, 121, 77);
+}
