@@ -6,7 +6,6 @@
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
     "aws-sdk": "^2.1066.0",
-    "axios": "^0.21.0",
     "bootstrap": "^4.5.3",
     "lodash": "^4.17.20",
     "moment": "^2.29.1",
@@ -16,15 +15,14 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "^5.0.0",
     "recharts": "^1.8.5",
-    "sass": "^1.32.8"
+    "sass": "^1.49.0",
+    "util": "^0.12.4"
   },
   "scripts": {
     "start": "set PORT=3000 && react-scripts start",
     "build": "CI= react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -43,13 +41,6 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",
-    "@storybook/addon-actions": "^6.1.1",
-    "@storybook/addon-essentials": "^6.1.1",
-    "@storybook/addon-links": "^6.1.1",
-    "@storybook/addons": "^5.2.6",
-    "@storybook/node-logger": "^6.1.1",
-    "@storybook/preset-create-react-app": "^3.1.5",
-    "@storybook/react": "^6.1.1",
     "netlify-plugin-inline-functions-env": "^1.0.9"
   }
 }
