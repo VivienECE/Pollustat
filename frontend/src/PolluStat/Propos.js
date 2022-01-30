@@ -2,17 +2,10 @@ import React from 'react';
 import './App.scss';
 import './App.css';
 import { Navbar,Nav } from 'react-bootstrap';
-import Avatar from '@material-ui/core/Avatar';
-import { useTheme } from '@material-ui/core/styles';
 
+/* eslint import/no-anonymous-default-export: [2, {"allowArrowFunction": true}] */
 export default () => {
 
-	 const [particule,setParticule] = React.useState('NO2');
-	  const handleClick = (event) => {
-		setParticule(event.target.innerText);
-	  };
-	  
-	  const theme = useTheme();
       return (
       <div class="text-dark bg-white">
         <Navbar bg="primary">

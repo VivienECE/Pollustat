@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
 } from 'recharts';
-import axios from 'axios'
+import * as AWS from 'aws-sdk'
 import moment from 'moment'
 
 export default class Example extends PureComponent {
@@ -13,24 +13,46 @@ export default class Example extends PureComponent {
         loading: true
     }
 
-  async componentDidMount() {
+    async componentDidMount() {
       //Have a try and catch block for catching errors.
       try {
-        axios.get('http://localhost:3000/mesure')
-        .then((response) => {
-            this.setState({ data : response.data.msg.sort(function(a,b){
-              return new Number(b.datetime) - new Number(a.datetime);
-            }) });
-            console.log(response)
-         })
-        } catch(err) {
+          AWS.config.update({region: process.env.AWS_REGION});
+          AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+            IdentityPoolId: process.env.AWS_ID,
+          });
+          AWS.config.credentials.get(function (err) {
+             if (err) console.log(err);
+             else console.log(AWS.config.credentials);
+          });
+
+          var docClient = new AWS.DynamoDB.DocumentClient();
+          // #datetime between :?? and :now
+          var params = {
+            TableName:  process.env.AWS_DB_TABLE,
+            ProjectionExpression: "#datetime, pollution, nom",
+            FilterExpression: "#datetime < :now",
+            ExpressionAttributeNames: {
+                "#datetime": "datetime",
+            },
+            ExpressionAttributeValues: {
+                 ":now": Date.now()
+            }
+          };
+          docClient.scan(params, (err, data) => {
+	           if(data!=null)
+             {data.Items.sort(function (a, b) {
+               return a.datetime - b.datetime;
+             });
+               this.setState({ data : data.Items });
+           }
+             console.log(this.state.data)
+           });
+          } catch(err) {
               console.log("Error fetching data-----------", err);
-        }
+          }
   }
 
-
   render() {
-    console.log(this.state.data)
     return (
       <div>
       <h5 class="texte">CO2 en PPM</h5>
@@ -52,6 +74,7 @@ export default class Example extends PureComponent {
             <YAxis />
             <Tooltip />
             <Area type="monotone" name="PPM" dataKey="pollution" stackId="1" stroke="#8884d8" fill="#8884d8" />
+            <Area type="monotone" name="PPM" dataKey="pollution2" stackId="1" stroke="#84d8ca" fill="#84d8ca" />
           </AreaChart>
         </ResponsiveContainer>
       </div>

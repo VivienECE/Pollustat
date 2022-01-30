@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {
   Switch,
   Route,
@@ -35,6 +35,7 @@ const theme = createTheme({
   },
 });
 
+/* eslint import/no-anonymous-default-export: [2, {"allowArrowFunction": true}] */
 export default () => {
       return (
               <ThemeProvider theme={theme}>

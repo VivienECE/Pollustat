@@ -2,6 +2,7 @@ import React from 'react';
 import Hidden from '@material-ui/core/Hidden';
 import './App.scss';
 
+/* eslint import/no-anonymous-default-export: [2, {"allowArrowFunction": true}] */
 export default () => {
       return (
       <footer class="bg-primary text-center text-lg-start" variant="dark">

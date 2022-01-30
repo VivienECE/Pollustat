@@ -10,7 +10,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
 import MenuIcon from '@material-ui/icons/Menu';
 
-
+/* eslint import/no-anonymous-default-export: [2, {"allowArrowFunction": true}] */
 export default () => {
     const drawerWidth = 240;
     const useStyles = makeStyles(theme => ({

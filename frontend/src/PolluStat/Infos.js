@@ -4,8 +4,8 @@ import './App.css';
 import { Navbar,Nav } from 'react-bootstrap';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
-import { useTheme } from '@material-ui/core/styles';
 
+/* eslint import/no-anonymous-default-export: [2, {"allowArrowFunction": true}] */
 export default () => {
 	 const PollutionContent = {
 		 NO2 : {
@@ -50,7 +50,6 @@ export default () => {
 		setParticule(event.target.innerText);
 	  };
 	  
-	  const theme = useTheme();
       return (
       <div class="text-dark bg-white">
         <Navbar bg="primary">
@@ -71,7 +70,7 @@ export default () => {
         		<div class="row col-md-12 col-sm-6">
 				<p>
 				<h1>{PollutionContent[particule].h1}</h1>
-					<img src={PollutionContent[particule].img[0]} width="500px" height="300px" id="img_left"/>
+					<img src={PollutionContent[particule].img[0]} id="img_left" alt=""/>
 					
 					<h3>{PollutionContent[particule].h3[0]}</h3>
 					{PollutionContent[particule].p[0]}</p>
@@ -80,7 +79,7 @@ export default () => {
   
         	<div class="container">
         		<div class="row col-md-12 col-sm-6">
-					<p><img src={PollutionContent[particule].img[1]} width="500" height="300" id="img_right"/>
+					<p><img src={PollutionContent[particule].img[1]} id="img_right" alt=""/>
 					<h3>{PollutionContent[particule].h3[1]}</h3>
 					{PollutionContent[particule].p[1]}
 					</p>		  
