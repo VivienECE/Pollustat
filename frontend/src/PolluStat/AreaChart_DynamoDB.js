@@ -26,7 +26,7 @@ export default class Example extends PureComponent {
           });
           AWS.config.credentials.get(function (err) {
              if (err) console.log(err);
-             else console.log(AWS.config.credentials);
+             else console.log("Connected to AWS");
           });
 
           var docClient = new AWS.DynamoDB.DocumentClient();
@@ -49,7 +49,6 @@ export default class Example extends PureComponent {
              });
                this.setState({ data : data.Items });
            }
-             console.log(this.state.data)
            });
           } catch(err) {
               console.log("Error fetching data-----------", err);
@@ -58,7 +57,6 @@ export default class Example extends PureComponent {
 
   render() {
     const {domain, tickFormatter} = this.context;
-    console.log(domain)
     return (
       <div>
       <h5 class="texte">CO2 en PPM</h5>
