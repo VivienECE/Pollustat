@@ -5,6 +5,7 @@ import {
 import * as AWS from 'aws-sdk'
 import moment from 'moment'
 import Context from './Context'
+var config = require('../config.json');
 
 export default class Example extends PureComponent {
       state = {
@@ -13,15 +14,15 @@ export default class Example extends PureComponent {
         //Have a loading state where when data retrieve returns data.
         loading: true
     }
-   
+    
     static contextType = Context
     
     async componentDidMount() {
       //Have a try and catch block for catching errors.
       try {
-          AWS.config.update({region: process.env.AWS_REGION1});
+          AWS.config.update({region: config.AWS_REGION1});
           AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-            IdentityPoolId: process.env.AWS_ID,
+            IdentityPoolId: config.AWS_ID,
           });
           AWS.config.credentials.get(function (err) {
              if (err) console.log(err);
@@ -31,7 +32,7 @@ export default class Example extends PureComponent {
           var docClient = new AWS.DynamoDB.DocumentClient();
           // #datetime between :?? and :now
           var params = {
-            TableName:  process.env.AWS_DB_TABLE,
+            TableName:  config.AWS_DB_TABLE,
             ProjectionExpression: "#sample_time, device_data, device_id",
             FilterExpression: "#sample_time < :now",
             ExpressionAttributeNames: {
