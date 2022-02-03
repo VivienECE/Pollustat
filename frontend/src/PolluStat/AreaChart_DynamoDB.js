@@ -1,11 +1,28 @@
 import React, { PureComponent } from 'react';
 import {
-  AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
+  Bar, AreaChart, Line, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
 } from 'recharts';
 import * as AWS from 'aws-sdk'
 import moment from 'moment'
 import Context from './Context'
 var config = require('../config.json');
+
+
+const CustomTooltip = ({ active, payload, label }) => {
+  if (active && payload && payload.length) {
+    console.log(payload)
+    return (
+      <div className="custom-tooltip">
+        <center>
+        <p className="label">{`${payload[0].name} : ${payload[0].value}`} ug/m3</p>
+        <p className="desc"> Time : {moment(label).format("hh:mm")}</p>
+        </center>
+      </div>
+    );
+  }
+
+  return null;
+};
 
 export default class Example extends PureComponent {
       state = {
@@ -33,10 +50,10 @@ export default class Example extends PureComponent {
           // #datetime between :?? and :now
           var params = {
             TableName:  config.AWS_DB_TABLE,
-            ProjectionExpression: "#sample_time, device_data, device_id",
-            FilterExpression: "#sample_time < :now",
+            ProjectionExpression: "#timestamp, device_data",
+            FilterExpression: "#timestamp < :now",
             ExpressionAttributeNames: {
-                "#sample_time": "sample_time",
+                "#timestamp": "timestamp",
             },
             ExpressionAttributeValues: {
                  ":now": Date.now()
@@ -45,9 +62,18 @@ export default class Example extends PureComponent {
           docClient.scan(params, (err, data) => {
 	           if(data!=null)
              {data.Items.sort(function (a, b) {
-               return a.datetime - b.datetime;
+               return a.timestamp - b.timestamp;
              });
-               this.setState({ data : data.Items });
+               var OrderedData = []
+               data.Items.map(item => {
+                  var newItem
+                  if(item.device_data.type==="PM10")
+                    newItem = {"PM10" : item.device_data.PM, timestamp : item.timestamp }
+                  else
+                    newItem = {"PM2.5" : item.device_data.PM, timestamp : item.timestamp }
+                  OrderedData.push(newItem)
+               })
+               this.setState({ data : OrderedData });
            }
            });
           } catch(err) {
@@ -57,9 +83,10 @@ export default class Example extends PureComponent {
 
   render() {
     const {domain, tickFormatter} = this.context;
+    console.log(this.state.data)
     return (
       <div>
-      <h5 class="texte">CO2 en PPM</h5>
+      <h5 class="texte">Particules Fines (PPM)</h5>
       <div style={{ width: '95%', height: 300 }}>
         <ResponsiveContainer>
           <AreaChart
@@ -70,16 +97,17 @@ export default class Example extends PureComponent {
           >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis
-               dataKey = 'sample_time'
+               dataKey = 'timestamp'
                allowDataOverFlow={true}
                domain = {domain}
                tickFormatter = {(unixTime) => moment(unixTime).format(tickFormatter)}
                type = 'number'
+               scale="time"
              />
             <YAxis />
-            <Tooltip />
-            <Area type="monotone" name="PPM" dataKey="device_data.polluant1" stackId="1" stroke="#8884d8" fill="#8884d8" />
-            <Area type="monotone" name="PPM" dataKey="device_data.polluant2" stackId="0" stroke="#84d8ca" fill="#84d8ca" />
+            <Tooltip content={<CustomTooltip />} />
+             <Area connectNulls = "true" type="monotone" name="PM10" dataKey="PM10" stackId="1" stroke="#8884d8" fill="#8884d8"  activeDot={{r: 8}}/>
+            <Area connectNulls = "true" type="monotone" name="PM2.5" dataKey="PM2.5" stackId="1" stroke="#84d8ca" fill="#84d8ca" activeDot={{r: 8}}/>
           </AreaChart>
         </ResponsiveContainer>
       </div>

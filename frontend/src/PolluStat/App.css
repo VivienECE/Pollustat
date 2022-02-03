@@ -83,3 +83,12 @@ footer {
   font-weight: bold;
   background-color: rgb(71, 121, 77);
 }
+
+.custom-tooltip{
+  background-color: rgba(110, 181, 119, 0.59);
+  font-weight: bold;
+  color:black;
+  vertical-align: middle;
+  align-items: center;
+  justify-content: center
+}
