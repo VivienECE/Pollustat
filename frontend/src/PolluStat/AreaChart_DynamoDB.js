@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import {
-  Bar, AreaChart, Line, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
+ AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
 } from 'recharts';
 import * as AWS from 'aws-sdk'
 import moment from 'moment'
@@ -65,14 +65,14 @@ export default class Example extends PureComponent {
                return a.timestamp - b.timestamp;
              });
                var OrderedData = []
-               data.Items.map(item => {
+               data.Items.forEach(item => {
                   var newItem
                   if(item.device_data.type==="PM10")
                     newItem = {"PM10" : item.device_data.PM, timestamp : item.timestamp }
                   else
                     newItem = {"PM2.5" : item.device_data.PM, timestamp : item.timestamp }
                   OrderedData.push(newItem)
-               })
+               });
                this.setState({ data : OrderedData });
            }
            });
