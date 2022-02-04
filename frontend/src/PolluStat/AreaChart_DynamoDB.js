@@ -67,9 +67,9 @@ export default class Example extends PureComponent {
                var OrderedData = []
                data.Items.forEach(item => {
                   var newItem
-                  if(item.device_data.type==="PM10")
+                  if(item.device_data.type==="PM10" && item.device_data["PM"])
                     newItem = {"PM10" : item.device_data.PM, timestamp : item.timestamp }
-                  else
+                  else if(item.device_data.type==="PM2.5" && item.device_data["PM"])
                     newItem = {"PM2.5" : item.device_data.PM, timestamp : item.timestamp }
                   OrderedData.push(newItem)
                });
